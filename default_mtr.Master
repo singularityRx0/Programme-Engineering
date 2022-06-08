@@ -1,0 +1,203 @@
+<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="default_mtr.Master.vb" Inherits="PROJ1.default_mtr" %>
+
+<%@ Register Src="~/userUC.ascx" TagPrefix="uc1" TagName="userUC" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="wwwhead" runat="server">
+  <title>Online Pos</title>
+  <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <style>
+        .navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+
+                .selectedleftmenu {
+            color:white !important;
+            background-color:#007acc !important;
+        }
+
+    </style>
+    <script>
+        function selectedleftmenu(menui) {
+
+            var i, tabactive, tablinks;
+
+
+
+            //tablinks = document.getElementsByClassName("idleftmenu");
+            //for (i = 0; i < tablinks.length; i++) {
+            //    tablinks[i].className = tablinks[i].className.replace(" selectedleftmenu", "");
+            //}
+
+
+            tabactive = document.getElementById("leftmenu" + menui);
+            tabactive.className += " selectedleftmenu";
+
+
+        }
+        function opensub(submenui) {
+
+            $("#" + "subleftmenu" + submenui).animate({
+                height: "toggle"
+            });
+        }
+
+        function opensub2(submenui) {
+
+            var tabactive
+            tabactive = document.getElementById("subleftmenu" + submenui);
+
+            tabactive.style.display="";
+
+        }
+    </script>
+
+</head>
+<body>
+    
+    <link href='css/drv.css?<%=gcsstimestamp %>' rel="stylesheet" />
+    <form id="form1" runat="server" autocomplete="off">
+
+        <div>
+            
+            <div class="drv_topbar20201126">
+
+                <a id="topmenu20201217" class="drv_button20201202topmenu" onclick="openmenu(true);" style="margin-top:5px; width: 20px; display: inline-block; cursor: pointer"><i style="font-size:20px" class="fa fa-bars" aria-hidden="true"></i></a>&#160;&#160;
+ 
+                <div style="display: inline-block; margin-top:10px; font-size: 20px;">
+                    <asp:Label ID="lbltitle" runat="server" Text="" EnableViewState="false"></asp:Label>
+                        </div>
+              
+                <div style="display: inline-block; margin:10px;float:right">
+             
+                    <uc1:userUC runat="server" ID="userUC" />
+                </div>
+            </div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHoldertop" runat="server">
+                    </asp:ContentPlaceHolder>
+ 
+            <div class="drv_leftmenu20201126show" id="leftmenu20201126">
+                <div style="padding-left: 10px; padding-right: 5px">
+                    <div style="display: inline-block; font-size: 20px;">
+                        Online POS</div>
+                    <div class="drv_closebtn20201126" style="float: right"><a onclick="openmenu(false);"><i class="material-icons" style="cursor:pointer">close</i></a> </div>
+
+                    <br />
+                    <br />
+
+  
+
+                </div>
+                <hr />
+                <div class="drv_leftmenulink" style="height:calc(100% - 100px);overflow-y:auto">
+              
+                    <a id="leftmenu1" href="default.aspx">Dashboard</a>
+
+                    <a id="leftmenu2" onclick="opensub(2)">Sales</a>
+                    <div id="subleftmenu2" class="drv_subleftmenulink" style="display:none">
+                       <a  id="leftmenu8" href="cashreceipt_src.aspx">Cash Receipt</a>
+                       <a  id="leftmenu9" href="cashreceipt_src.aspx">Cash Sales</a>
+                       <a  id="leftmenu10" href="cashreceipt_src.aspx">Invoice</a>
+                    </div>
+                    <a id="leftmenu3" onclick="opensub(3)">Inventory</a>
+                    <div id="subleftmenu3" class="drv_subleftmenulink" style="display:none">
+                       <a  id="leftmenu11" href="cashreceipt_src.aspx">Goods Receive Note</a>
+                       <a  id="leftmenu12" href="cashreceipt_src.aspx">Purchase Return</a>
+                       <a  id="leftmenu13" href="cashreceipt_src.aspx">Goods Issue Note</a>
+                       <a  id="leftmenu14" href="cashreceipt_src.aspx">Stock Adjustment</a>
+                       <a  id="leftmenu15" href="cashreceipt_src.aspx">Goods Assembly</a>
+       
+                    </div>
+                    <a id="leftmenu4" onclick="opensub(4)">Maintenance</a>
+                    <div id="subleftmenu4" class="drv_subleftmenulink" style="display:none">
+                       <a  id="leftmenu16" href="uom_src.aspx">UOM</a>
+                       <a  id="leftmenu17" href="itemgroup_src.aspx">Item Group</a>
+                       <a  id="leftmenu19" href="location_src.aspx">Location</a>
+                       <a  id="leftmenu20" href="item_src.aspx">Item</a>
+                       <a  id="leftmenu21" href="Supplier_src.aspx">Supplier</a>
+                       <a  id="leftmenu22" href="department_src.aspx">Department</a>
+                       <a  id="leftmenu23" href="customer_src.aspx">Customer</a>
+                        <a  id="leftmenu28" href="membership_src.aspx">Membership</a>
+
+                    </div>
+                    <a id="leftmenu5" onclick="opensub(5)">Report</a>
+                      <div id="subleftmenu5" class="drv_subleftmenulink" style="display:none">
+                       <a  id="leftmenu26" href="user_src.aspx">Stock Balance Report</a>
+                       <a  id="leftmenu27" href="cashreceipt_src.aspx">Cash Sales Report</a>
+
+
+                       </div>
+                    <a  id="leftmenu6" onclick="opensub(6)" style="display:<%=menu1%>">Administrative</a>
+                      <div id="subleftmenu6" class="drv_subleftmenulink" style="display:none">
+                       <a  id="leftmenu24" href="user_src.aspx">Users</a>
+                       <a  id="leftmenu25" href="profile_mdf.aspx">Company Profile</a>
+
+
+                       </div>
+                    <a  id="leftmenu7" href="testipay88.aspx">Test ipay88</a>
+               
+                    <hr />
+                    <div style="padding:20px">
+                        Online POS
+
+                    </div>
+
+                </div>
+            </div>
+
+            <table style="width: 100%">
+                <tr>
+                    <td class="drv_lefttable"></td>
+
+                    <td class="drv_content20201126">
+                     
+                            <div class="drv_center">
+                        <asp:ContentPlaceHolder ID="cphMain" runat="server">
+                        </asp:ContentPlaceHolder>
+                                </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
+    </form>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function openmenu(truefalse) {
+        $("#leftmenu20201126").animate({
+            width: "toggle"
+        });
+
+        //if (truefalse) {
+        //    //    document.getElementById('leftmenu20201126').style.display = "block";
+        //    $("#leftmenu20201126").addClass('drv_leftmenu20201126show').removeClass('drv_leftmenu20201126')
+
+        //} else {
+        // //   $("#leftmenu20201126").addClass('drv_leftmenu20201126').removeClass('drv_leftmenu20201126show');
+
+        //    $("#leftmenu20201126").animate({
+        //        width: "toggle"
+        //    });
+
+        //    //            document.getElementById('leftmenu20201126').style.display = "none";
+        //}
+    }
+
+
+
+   // selectedleftmenu(3);
+</script>
