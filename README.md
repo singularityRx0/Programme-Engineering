@@ -5,4 +5,4 @@ membership - collect points, discount 10%(?)
 - [ ] in cash receipt need add a slot to key in members id n show total points collected
 
 ### `memmbershipDB.vb` placed under Components folder. 
-##Change all related Public Class identifier to `membershipDB` after duplicating from other code.
+## Change all related Public Class identifier to `membershipDB` after duplicating from other code.
