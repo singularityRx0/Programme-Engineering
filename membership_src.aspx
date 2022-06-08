@@ -1,127 +1,163 @@
-<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="membership_mdf.aspx.vb" Inherits="PROJ1.membership_mdf" %>
+<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/default_mtr.master" CodeBehind="membership_src.aspx.vb" Inherits="PROJ1.membership_src" %>
 
 <%@ Register Src="~/errorUC.ascx" TagPrefix="uc1" TagName="errorUC" %>
 <%@ Register Src="~/toastUC.ascx" TagPrefix="uc1" TagName="toastUC" %>
 
 <%@ Register Src="~/paging.ascx" TagPrefix="uc2" TagName="paging" %>
-<%@ Register Src="~/switchCtl.ascx" TagPrefix="uc2" TagName="switchCtl" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//Dtd html 4.0 transitional//EN">
-<html>
-<head id="wwwhead" runat="server">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHoldertop" runat="server">
+Customer 
 
-</head>
+     
+</asp:Content>
 
-<body class="drv_rightbody">
-      <link href='css/drv.css?a=<%=Format(Now, "yyyy-M-d-HH") %>' rel="stylesheet" />
+<asp:Content ID="ctcpmain" ContentPlaceHolderID="cphMain" runat="Server">
 
 
-    <form id="Form1" method="post" runat="server">
 
-    <style>
-        @media screen and (min-width: 601px) {
-            .local_div {
-                width:45%;
+        <style>
+          @media screen and (min-width: 601px) {
+            .local_div2 {
+                width:1000px;
+                max-width:800px;
 
             }
         }
+         .local_div {
+                width:500px;
+
+            }
+        @media screen and (max-width: 600px) {
+            .local_div {
+                width:100%;
+
+            }
+        }
+
     </style>
 
     <uc1:errorUC runat="server" ID="errorUC" />
     <uc1:toastUC runat="server" ID="toastUC" />
-    <asp:HiddenField ID="hfid" runat="server" />
 
-        <div class="drv_rightboxtitle">Customer</div>
 
             <div class="drv_row">
 
+      
+                <div class="drv_rw20201206-column local_div2" style="height: 500px;">
+                               <div class="drv_title">Membership List      <button class="drv_buttonrowtable" style="float:right" onclick="openright(0)" type="button">Register</button></div>
+                     <asp:TextBox ID="txtsearchtext" runat="server" placeholder="Phone No." CssClass="drv_textbox" autofocus="true" Width="200px" />
+         <asp:Button ID="btnsearch" runat="server" CssClass="drv_button20201202" Text="Search"></asp:Button><br /><br />
+                                     <div class="drv_datatable">
+                                         <asp:GridView ID="dgmember" AutoGenerateColumns="false" GridLines="None" runat="server" Width="100%" EnableViewState="False"
+                                             ShowHeaderWhenEmpty="True" EmptyDataText="No records Found">
 
-            <div class="drv_rw20201206-column local_div" style="height: auto;">
-                    <div class="drv_title">Detail</div>
+                                             <Columns>
+                                                 <asp:TemplateField HeaderText="No." ItemStyle-Width="25px">
+                                                     <ItemTemplate>
 
-                   
-                  <div class="drv_group_underline">
-                      <b>Code</b>
-                                <asp:TextBox ID="txtcode" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float:right" />
-
-                  </div>
-
+                                                         <%#DataBinder.Eval(Container.DataItem, "seq")%>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                                 <asp:TemplateField HeaderText="Code">
+                                                     <ItemTemplate>
 
 
-                  <div class="drv_group_underline">
-                      <b>Description</b>
-                                <asp:TextBox ID="txtdescription" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float:right" />
+                                                         <%#DataBinder.Eval(Container.DataItem, "Code")%>
+                                                         <div>
+                                                             <%#DataBinder.Eval(Container.DataItem, "description")%>
+                                                         </div>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
 
-                  </div>
 
-                <div class="drv_group_underline" style="height:100px">
-                    <b>Address</b>
-                    <asp:TextBox ID="txtAddress" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
 
-                </div>
-                <div class="drv_group_underline" style="height:100px">
-                    <b>Deliver To</b>
-                    <asp:TextBox ID="txtdeliverTo" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
+                                                 <asp:TemplateField HeaderText="Action" ItemStyle-Width="50px">
+                                                     <ItemTemplate>
 
-                </div>
-                <div class="drv_group_underline">
-                    <b>Tel</b>
-                    <asp:TextBox ID="txttel" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
 
-                <div class="drv_group_underline">
-                    <b>Fax</b>
-                    <asp:TextBox ID="txtfax" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
 
-                <div class="drv_group_underline">
-                    <b>Contact Person</b>
-                    <asp:TextBox ID="txtcontact" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
+                                                         <button class="drv_buttonrowtable" onclick="openright(<%#DataBinder.Eval(Container.DataItem, "id")%>)" type="button">Edit</button>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+                                             </Columns>
 
-                <div class="drv_group_underline">
-                    <b>Terms</b>
-                    <asp:TextBox ID="txtterms" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
-                      <div class="drv_group_underline">
-                    <b>Terms Remarks</b>
-                    <asp:TextBox ID="txttermsremarks" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
-                <div class="drv_group_underline">
-                    <b>GL Account</b>
-                    <asp:TextBox ID="txtAcc_GLAccountCode" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
+                                         </asp:GridView>
+									</div>
 
-                <div class="drv_group_underline">
-                    <b>Active</b>
-                    <asp:CheckBox  Style="float: right" ID="chkactive" runat="server" />
-                   
+
+
+		                         <div style="width: 100%; display: block; text-align: center">
+
+
+            <div style="display: inline-block">
+
+           <uc2:paging runat="server" ID="paging1" />
+            </div>
+</div>
+
+     
+
+
                 </div>
 
 
-       <br /> <br /> <br />
-      <div style="text-align:center">
-                              <asp:Button ID="btnAdd" runat="server" CssClass="drv_button20201202" Text="Create"></asp:Button>
-                    &nbsp;
-                    <asp:Button ID="btnSave" runat="server" CssClass="drv_button20201202" Text="Save" CausesValidation="False"></asp:Button>
-                    &nbsp;
-                   
-                    <asp:Button ID="btnDelete" runat="server" CssClass="drv_button20201202" Text="Delete" CausesValidation="False"></asp:Button>
-
-
-          </div>
-                </div>
 
             </div>
+    
+    <%--------right box----------%>
+              <div class="drv_newrightboxmodelout local_div" id="rightbox">
+                    
+
+   <div class="drv_newrightboxclosebtnout"><a onclick="closeright();"><i class="material-icons" style="font-size: 20px; color: #2e2d2d;">close</i></a> </div>  
+                  
+                   <iframe id="ifcontent" style="border-style: none; width: 100%; height: calc(100vh - 50px)"></iframe>
+            </div>
+
+         <script>
 
 
 
-    </form>
-</body>
-</html>
+             function openright(Customerid) {
+                 var d = new Date();
+                 var t = d.getTime();
+
+                 //$("#rightbox").width("400px");
+                 //        $("#rightbox").css("right", "0px");
+
+                 $("#rightbox").animate({
+                     width: "toggle"
+                 });
+
+                 if (Customerid > 0) {
+                     document.getElementById('ifcontent').src = "Customer_mdf.aspx?xid=" + Customerid + "&time=" + t;
+
+                 } else {
+                     document.getElementById('ifcontent').src = "Customer_mdf.aspx?frmMode=NEW&time=" + t;
+
+                 }
 
 
+
+             }
+
+             function closeright() {
+                 $("#rightbox").animate({
+                     width: "toggle"
+                 });
+
+                 document.getElementById('ifcontent').src = "";
+
+
+             }
+
+         </script>
+    <%-------------end right box --------------------------%>
+
+
+        <script>
+
+            selectedleftmenu(28);
+            opensub2(4);
+        </script>
+</asp:Content>
 
