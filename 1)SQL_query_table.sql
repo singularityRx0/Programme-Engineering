@@ -1,5 +1,5 @@
 CREATE TABLE o_Membership 
-(	ID int,
+(	ID varchar(50),
 	Person_Name varchar(50),
 	Identity_Card_Number varchar(50),
 	Phone_Number varchar(50),
