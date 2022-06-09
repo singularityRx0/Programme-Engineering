@@ -40,7 +40,7 @@
 
 
             <div class="drv_rw20201206-column local_div" style="height: auto;">
-                    <div class="drv_title">Detail</div>
+                    <div class="drv_title">Information</div>
 
                    
                   <div class="drv_group_underline">
