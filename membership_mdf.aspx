@@ -34,7 +34,7 @@
     <uc1:toastUC runat="server" ID="toastUC" />
     <asp:HiddenField ID="hfid" runat="server" />
 
-        <div class="drv_rightboxtitle">Customer</div>
+        <div class="drv_rightboxtitle">Membership</div>
 
             <div class="drv_row">
 
