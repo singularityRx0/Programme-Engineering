@@ -6,7 +6,7 @@
 <%@ Register Src="~/paging.ascx" TagPrefix="uc2" TagName="paging" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHoldertop" runat="server">
-Customer 
+Membership 
 
      
 </asp:Content>
@@ -129,10 +129,10 @@ Customer
                  });
 
                  if (Customerid > 0) {
-                     document.getElementById('ifcontent').src = "Customer_mdf.aspx?xid=" + Customerid + "&time=" + t;
+                     document.getElementById('ifcontent').src = "membership_mdf.aspx?xid=" + Customerid + "&time=" + t;
 
                  } else {
-                     document.getElementById('ifcontent').src = "Customer_mdf.aspx?frmMode=NEW&time=" + t;
+                     document.getElementById('ifcontent').src = "membership_mdf.aspx?frmMode=NEW&time=" + t;
 
                  }
 
