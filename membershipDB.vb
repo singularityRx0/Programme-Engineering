@@ -93,7 +93,7 @@ Public Class membershipDB
         parameterId.Value = xId
         myCommand.Parameters.Add(parameterId)
 
-        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 30)
+        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
         parameterCode.Value = Person_Name
         myCommand.Parameters.Add(parameterCode)
 
@@ -183,7 +183,7 @@ Public Class membershipDB
                             xMembership_Type As String,
                             xTotal_Points As Integer,
                             xRebate_Percetage As Decimal,
-                            xExpiry_Date As String,
+                            xExpiry_Date As DateTime,
                             ) As Boolean
 
 
@@ -204,43 +204,43 @@ Public Class membershipDB
         parameterID.Direction = ParameterDirection.InputOutput
         myCommand.Parameters.Add(parameterID)
 
-        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
-        parameterCode.Value = xPerson_Name
-        myCommand.Parameters.Add(parameterCode)
+        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.VarChar, 50)
+        parameterPerson_Name.Value = xPerson_Name
+        myCommand.Parameters.Add(parameterPerson_Name)
 
 
-        Dim parameterdescription As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.NVarChar, 50)
-        parameterdescription.Value = xIdentity_Card_Number
-        myCommand.Parameters.Add(parameterdescription)
+        Dim parameterIdentity_Card_Number As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.VarChar, 50)
+        parameterIdentity_Card_Number.Value = xIdentity_Card_Number
+        myCommand.Parameters.Add(parameterIdentity_Card_Number)
 
 
-        Dim parameterAddress As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.NVarChar, 50)
-        parameterAddress.Value = xPhone_Number
-        myCommand.Parameters.Add(parameterAddress)
+        Dim parameterPhone_Number As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.VarChar, 50)
+        parameterPhone_Number.Value = xPhone_Number
+        myCommand.Parameters.Add(parameterPhone_Number)
 
-        Dim parameterTel As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.NVarChar, 50)
-        parameterTel.Value = xE_Mail
-        myCommand.Parameters.Add(parameterTel)
+        Dim parameterE_Mail As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.VarChar, 50)
+        parameterE_Mail.Value = xE_Mail
+        myCommand.Parameters.Add(parameterE_Mail)
 
-        Dim parameterFax As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
-        parameterFax.Value = xUniq_ID
-        myCommand.Parameters.Add(parameterFax)
+        Dim parameterUniq_ID As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.VarChar, 50)
+        parameterUniq_ID.Value = xUniq_ID
+        myCommand.Parameters.Add(parameterUniq_ID)
 
-        Dim parameterContact As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
-        parameterContact.Value = xMembership_Type
-        myCommand.Parameters.Add(parameterContact)
+        Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.VarChar, 50)
+        parameterMembership_Type.Value = xMembership_Type
+        myCommand.Parameters.Add(parameterMembership_Type)
 
-        Dim parameterAcc_GLAccountCode As SqlParameter = New SqlParameter("@xTotal_Points", SqlDbType.Int)
-        parameterAcc_GLAccountCode.Value = xTotal_Points
-        myCommand.Parameters.Add(parameterAcc_GLAccountCode)
+        Dim parameterTotal_Points As SqlParameter = New SqlParameter("@xTotal_Points", SqlDbType.Int)
+        parameterTotal_Points.Value = xTotal_Points
+        myCommand.Parameters.Add(parameterTotal_Points)
 
-        Dim parameterTerms As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.Decimal)
-        parameterTerms.Value = xRebate_Percetage
-        myCommand.Parameters.Add(parameterTerms)
+        Dim parameterRebate_Percetage As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.Decimal)
+        parameterRebate_Percetage.Value = xRebate_Percetage
+        myCommand.Parameters.Add(parameterRebate_Percetage)
 
-        Dim parameterTermsRemarks As SqlParameter = New SqlParameter("@Expriry_Date", SqlDbType.DateTime)
-        parameterTermsRemarks.Value = xExpiry_Date
-        myCommand.Parameters.Add(parameterTermsRemarks)
+        Dim parameterxpiry_Date As SqlParameter = New SqlParameter("@Expriry_Date", SqlDbType.DateTime)
+        parameterxpiry_Date.Value = xExpiry_Date
+        myCommand.Parameters.Add(parameterxpiry_Date)
 
 
         Dim usr As New userDB(mConnection)
