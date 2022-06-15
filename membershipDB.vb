@@ -183,7 +183,7 @@ Public Class membershipDB
                             xMembership_Type As String,
                             xTotal_Points As Integer,
                             xRebate_Percetage As Decimal,
-                            xExpiry_Date As DateTime,
+                            xExpiry_Date As DateTime
                             ) As Boolean
 
 
