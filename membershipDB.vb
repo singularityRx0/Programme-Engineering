@@ -63,31 +63,27 @@ Public Class membershipDB
 
     Public Class recordDetail
         Public ID As Integer
-        Public code As String
-        Public description As String
+        Public Person_Name As String
+        Public Identity_Card_Number As String
+        Public Phone_Number As String
+        Public E_Mail As String
+        Public Uniq_ID As String
+        Public Membership_Type As String
+        Public Total_Points As Integer
+        Public Rebate_Percetage As Decimal
+        Public Expiry_Date As DateTime
 
-        Public Address As String
-        Public Tel As String
-        Public Fax As String
-        Public Contact As String
-        Public Balance As Decimal
-        Public terms As Integer
-        Public Acc_GLAccountCode As String
-
-        Public active As Boolean
-        Public DeliverTo As String
-        Public TermsRemarks As String
 
     End Class
     Public MyDetail As New recordDetail
 
 
 
-    Public Function pFind(ByVal xId As Integer, ByVal Code As String) As Boolean
+    Public Function pFind(ByVal xId As Integer, ByVal Person_Name As String) As Boolean
 
         Dim found As Boolean = False
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_customer_Fd", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Fd", mConnection)
 
         ' Mark the Command as a SPROC
         myCommand.CommandType = CommandType.StoredProcedure
@@ -97,8 +93,8 @@ Public Class membershipDB
         parameterId.Value = xId
         myCommand.Parameters.Add(parameterId)
 
-        Dim parameterCode As SqlParameter = New SqlParameter("@Code", SqlDbType.NVarChar, 30)
-        parameterCode.Value = Code
+        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 30)
+        parameterCode.Value = Person_Name
         myCommand.Parameters.Add(parameterCode)
 
         ' Execute the command
@@ -111,7 +107,7 @@ Public Class membershipDB
 
 
         MyDetail.ID = 0
-        MyDetail.code = ""
+        MyDetail.Person_Name = ""
 
 
 
@@ -119,20 +115,15 @@ Public Class membershipDB
             With MyDetail
                 ' On Error Resume Next
                 .ID = result("ID")
-                .code = result("Code")
-                .description = result("description")
-
-                .Address = result("Address")
-                .Tel = result("Tel")
-                .Fax = result("Fax")
-                .Contact = result("Contact")
-                .Balance = result("Balance")
-                .terms = result("terms")
-                .Acc_GLAccountCode = result("Acc_GLAccountCode")
-
-                .active = YNToBoolean(result("active"))
-                .DeliverTo = result("DeliverTo")
-                .TermsRemarks = result("TermsRemarks")
+                .Person_Name = result("Person Name")
+                .Identity_Card_Number = result("IC Number")
+                .Phone_Number = result("Phone Number")
+                .E_Mail = result("E-mail")
+                .Uniq_ID = result("Uniq_ID")
+                .Membership_Type = result("Membership Type")
+                .Total_Points = result("Total Points")
+                .Rebate_Percetage = result("Rebate Percentages")
+                .Expiry_Date = result("Expiry Date")
 
             End With
 
@@ -151,7 +142,7 @@ Public Class membershipDB
 
 
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_customer_src", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_src", mConnection)
 
         ' Mark the Command as a SPROC
         myCommand.CommandType = CommandType.StoredProcedure
@@ -185,20 +176,18 @@ Public Class membershipDB
 
     End Function
 
-    Public Function pUpdate(ByRef xID As Integer, ByVal xCode As String, xdescription As String,
-                            xAddress As String,
-                            xTel As String,
-                            xFax As String,
-                            xContact As String,
-                            xAcc_GLAccountCode As String,
-                            xTerms As Integer,
-                            xTermsRemarks As String,
-                            xActive As Boolean,
-                            xDeliverTo As String,
-              ByVal xAction As String) As Boolean
+    Public Function pUpdate(ByRef xID As Integer, ByVal xPerson_Name As String, xIdentity_Card_Number As String,
+                            xPhone_Number As String,
+                            xE_Mail As String,
+                            xUniq_ID As String,
+                            xMembership_Type As String,
+                            xTotal_Points As Integer,
+                            xRebate_Percetage As Decimal,
+                            xExpiry_Date As String,
+                            ) As Boolean
 
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_customer_Updt", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Updt", mConnection)
 
 
         ' Mark the Command as a SPROC
@@ -215,51 +204,44 @@ Public Class membershipDB
         parameterID.Direction = ParameterDirection.InputOutput
         myCommand.Parameters.Add(parameterID)
 
-        Dim parameterCode As SqlParameter = New SqlParameter("@Code", SqlDbType.NVarChar, 30)
-        parameterCode.Value = xCode
+        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
+        parameterCode.Value = xPerson_Name
         myCommand.Parameters.Add(parameterCode)
 
 
-        Dim parameterdescription As SqlParameter = New SqlParameter("@description", SqlDbType.NVarChar, 100)
-        parameterdescription.Value = xdescription
+        Dim parameterdescription As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.NVarChar, 50)
+        parameterdescription.Value = xIdentity_Card_Number
         myCommand.Parameters.Add(parameterdescription)
 
 
-        Dim parameterAddress As SqlParameter = New SqlParameter("@Address", SqlDbType.NVarChar, 250)
-        parameterAddress.Value = xAddress
+        Dim parameterAddress As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.NVarChar, 50)
+        parameterAddress.Value = xPhone_Number
         myCommand.Parameters.Add(parameterAddress)
 
-        Dim parameterTel As SqlParameter = New SqlParameter("@Tel", SqlDbType.NVarChar, 30)
-        parameterTel.Value = xTel
+        Dim parameterTel As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.NVarChar, 50)
+        parameterTel.Value = xE_Mail
         myCommand.Parameters.Add(parameterTel)
 
-        Dim parameterFax As SqlParameter = New SqlParameter("@Fax", SqlDbType.NVarChar, 30)
-        parameterFax.Value = xFax
+        Dim parameterFax As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
+        parameterFax.Value = xUniq_ID
         myCommand.Parameters.Add(parameterFax)
 
-        Dim parameterContact As SqlParameter = New SqlParameter("@Contact", SqlDbType.NVarChar, 30)
-        parameterContact.Value = xContact
+        Dim parameterContact As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
+        parameterContact.Value = xMembership_Type
         myCommand.Parameters.Add(parameterContact)
 
-        Dim parameterAcc_GLAccountCode As SqlParameter = New SqlParameter("@Acc_GLAccountCode", SqlDbType.NVarChar, 30)
-        parameterAcc_GLAccountCode.Value = xAcc_GLAccountCode
+        Dim parameterAcc_GLAccountCode As SqlParameter = New SqlParameter("@xTotal_Points", SqlDbType.Int)
+        parameterAcc_GLAccountCode.Value = xTotal_Points
         myCommand.Parameters.Add(parameterAcc_GLAccountCode)
 
-        Dim parameterTerms As SqlParameter = New SqlParameter("@Terms", SqlDbType.Int)
-        parameterTerms.Value = xTerms
+        Dim parameterTerms As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.Decimal)
+        parameterTerms.Value = xRebate_Percetage
         myCommand.Parameters.Add(parameterTerms)
 
-        Dim parameterTermsRemarks As SqlParameter = New SqlParameter("@TermsRemarks", SqlDbType.NVarChar, 30)
-        parameterTermsRemarks.Value = xTermsRemarks
+        Dim parameterTermsRemarks As SqlParameter = New SqlParameter("@Expriry_Date", SqlDbType.DateTime)
+        parameterTermsRemarks.Value = xExpiry_Date
         myCommand.Parameters.Add(parameterTermsRemarks)
 
-        Dim parameteractive As SqlParameter = New SqlParameter("@active", SqlDbType.NVarChar, 1)
-        parameteractive.Value = BooleanToYN(xActive)
-        myCommand.Parameters.Add(parameteractive)
-
-        Dim parameterDeliverTo As SqlParameter = New SqlParameter("@DeliverTo", SqlDbType.NVarChar, 250)
-        parameterDeliverTo.Value = xDeliverTo
-        myCommand.Parameters.Add(parameterDeliverTo)
 
         Dim usr As New userDB(mConnection)
         usr.GetCurrentUser()
@@ -269,9 +251,7 @@ Public Class membershipDB
         usr.Dispose()
         mConnection.Close()
 
-        Dim parameterAction As SqlParameter = New SqlParameter("@Action", SqlDbType.NVarChar, 10)
-        parameterAction.Value = xAction
-        myCommand.Parameters.Add(parameterAction)
+
 
 
         ' Open the connection and execute the Command
