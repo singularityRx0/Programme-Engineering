@@ -245,9 +245,6 @@ Public Class membershipDB
 
         Dim usr As New userDB(mConnection)
         usr.GetCurrentUser()
-        Dim parameterUpdateBy As SqlParameter = New SqlParameter("@UpdateBy", SqlDbType.Int)
-        parameterUpdateBy.Value = usr.MyDetail.ID
-        myCommand.Parameters.Add(parameterUpdateBy)
         usr.Dispose()
         mConnection.Close()
 
