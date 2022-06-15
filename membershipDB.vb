@@ -93,9 +93,9 @@ Public Class membershipDB
         parameterId.Value = xId
         myCommand.Parameters.Add(parameterId)
 
-        Dim parameterCode As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
-        parameterCode.Value = Person_Name
-        myCommand.Parameters.Add(parameterCode)
+        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
+        parameterPerson_Name.Value = Person_Name
+        myCommand.Parameters.Add(parameterPerson_Name)
 
         ' Execute the command
         Try
