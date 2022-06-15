@@ -44,7 +44,7 @@
 
                    
                   <div class="drv_group_underline">
-                      <b>Code</b>
+                      <b>Person Name</b>
                                 <asp:TextBox ID="txtPerson_Name" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float:right" />
 
                   </div>
@@ -52,42 +52,42 @@
 
 
                   <div class="drv_group_underline">
-                      <b>Description</b>
+                      <b>Identity Card Number</b>
                                 <asp:TextBox ID="txtIdentity_Card_Number" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float:right" />
 
                   </div>
 
                 <div class="drv_group_underline" style="height:100px">
-                    <b>Address</b>
+                    <b>Phone Number</b>
                     <asp:TextBox ID="txtPhone_Number" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
 
                 </div>
                 <div class="drv_group_underline" style="height:100px">
-                    <b>Deliver To</b>
+                    <b>E-mail</b>
                     <asp:TextBox ID="txtE_Mail" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
 
                 </div>
                 <div class="drv_group_underline">
-                    <b>Tel</b>
+                    <b>Uniq ID</b>
                     <asp:TextBox ID="txtUniq_ID" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
 
                 <div class="drv_group_underline">
-                    <b>Fax</b>
+                    <b>Membership Type</b>
                     <asp:TextBox ID="txtMembership_Type" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
 
                 <div class="drv_group_underline">
-                    <b>Contact Person</b>
+                    <b>Total Points</b>
                     <asp:TextBox ID="txtTotal_Points" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
 
                 <div class="drv_group_underline">
-                    <b>Terms</b>
+                    <b>Rebate Percentage</b>
                     <asp:TextBox ID="txtRebate_Percentage" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
                       <div class="drv_group_underline">
-                    <b>Terms Remarks</b>
+                    <b>Expiry Date</b>
                     <asp:TextBox ID="txtExpiry_Date" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
                 <div class="drv_group_underline">
