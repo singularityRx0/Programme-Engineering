@@ -115,15 +115,15 @@ Public Class membershipDB
             With MyDetail
                 ' On Error Resume Next
                 .ID = result("ID")
-                .Person_Name = result("Person Name")
-                .Identity_Card_Number = result("IC Number")
-                .Phone_Number = result("Phone Number")
-                .E_Mail = result("E-mail")
+                .Person_Name = result("Person_Name")
+                .Identity_Card_Number = result("Identity_Card_Number")
+                .Phone_Number = result("Phone_Number")
+                .E_Mail = result("E_mail")
                 .Uniq_ID = result("Uniq_ID")
-                .Membership_Type = result("Membership Type")
-                .Total_Points = result("Total Points")
-                .Rebate_Percetage = result("Rebate Percentages")
-                .Expiry_Date = result("Expiry Date")
+                .Membership_Type = result("Membership_Type")
+                .Total_Points = result("Total_Points")
+                .Rebate_Percetage = result("Rebate_Percentages")
+                .Expiry_Date = result("Expiry_Date")
 
             End With
 
@@ -176,14 +176,15 @@ Public Class membershipDB
 
     End Function
 
-    Public Function pUpdate(ByRef xID As Integer, ByVal xPerson_Name As String, xIdentity_Card_Number As String,
+    Public Function pUpdate(ByRef xID As Integer, ByVal xPerson_Name As String, ByVal xIdentity_Card_Number As String,
                             xPhone_Number As String,
                             xE_Mail As String,
                             xUniq_ID As String,
                             xMembership_Type As String,
                             xTotal_Points As Integer,
                             xRebate_Percetage As Decimal,
-                            xExpiry_Date As DateTime
+                            xExpiry_Date As DateTime,
+                            ByVal xAction As String
                             ) As Boolean
 
 
@@ -204,29 +205,29 @@ Public Class membershipDB
         parameterID.Direction = ParameterDirection.InputOutput
         myCommand.Parameters.Add(parameterID)
 
-        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.VarChar, 50)
+        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
         parameterPerson_Name.Value = xPerson_Name
         myCommand.Parameters.Add(parameterPerson_Name)
 
 
-        Dim parameterIdentity_Card_Number As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.VarChar, 50)
+        Dim parameterIdentity_Card_Number As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.NVarChar, 50)
         parameterIdentity_Card_Number.Value = xIdentity_Card_Number
         myCommand.Parameters.Add(parameterIdentity_Card_Number)
 
 
-        Dim parameterPhone_Number As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.VarChar, 50)
+        Dim parameterPhone_Number As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.NVarChar, 50)
         parameterPhone_Number.Value = xPhone_Number
         myCommand.Parameters.Add(parameterPhone_Number)
 
-        Dim parameterE_Mail As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.VarChar, 50)
+        Dim parameterE_Mail As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.NVarChar, 50)
         parameterE_Mail.Value = xE_Mail
         myCommand.Parameters.Add(parameterE_Mail)
 
-        Dim parameterUniq_ID As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.VarChar, 50)
+        Dim parameterUniq_ID As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
         parameterUniq_ID.Value = xUniq_ID
         myCommand.Parameters.Add(parameterUniq_ID)
 
-        Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.VarChar, 50)
+        Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
         parameterMembership_Type.Value = xMembership_Type
         myCommand.Parameters.Add(parameterMembership_Type)
 
@@ -248,6 +249,9 @@ Public Class membershipDB
         usr.Dispose()
         mConnection.Close()
 
+        Dim parameterAction As SqlParameter = New SqlParameter("@Action", SqlDbType.NVarChar, 10)
+        parameterAction.Value = xAction
+        myCommand.Parameters.Add(parameterAction)
 
 
 
