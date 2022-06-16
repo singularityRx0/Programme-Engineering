@@ -1,280 +1,157 @@
-Imports System
-Imports System.Configuration
-Imports System.Data
 Imports System.Data.SqlClient
+Public Class membership_mdf
+    Inherits System.Web.UI.Page
 
-
-
-Public Class membershipDB
-    Inherits System.ComponentModel.Component
-
-#Region " Component Designer generated code "
-
-    Public Sub New(ByVal Container As System.ComponentModel.IContainer)
-        MyClass.New()
-
-        'Required for Windows.Forms Class Composition Designer support
-        Container.Add(Me)
+    Private gconn1 As SqlConnection = createconn()
+    Protected Sub Page_Error(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Error
+        gconn1.Close()
+        gconn1.Dispose()
     End Sub
 
-    Public Sub New()
-        MyBase.New()
+    Protected Sub Page_LoadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LoadComplete
+        gconn1.Close()
 
-        'This call is required by the Component Designer.
-        InitializeComponent()
-
-        'Add any initialization after the InitializeComponent() call
-
-
+        gconn1.Dispose()
     End Sub
-    Public Sub New(ByRef xConnection As SqlConnection)
-        MyBase.New()
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        'This call is required by the Component Designer.
-        InitializeComponent()
 
-        mConnection = xConnection
-        'Add any initialization after the InitializeComponent() call
+        If Not usercheckpermission(gconn1, 41) Then
+            Exit Sub
+        End If
+        If Page.IsPostBack = False Then
 
-    End Sub
-    'Component overrides dispose to clean up the component list.
-    Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
-        If disposing Then
-            If Not (components Is Nothing) Then
-                components.Dispose()
+            gconn1.Close()
+            Dim frmMode As String = Request.Params("frmMode")
+            If Not (frmMode <> "") Then frmMode = ""
+            SetFormMode(frmMode)
+
+            Dim xid As String = Request.Params("xid")
+            If xid <> "" Then
+                hfid.Value = xid
+                loaddata()
             End If
+
+
+            gconn1.Close()
+
+
+
+
+
+
         End If
-        MyBase.Dispose(disposing)
+
+    End Sub
+    Private Sub Reset(ByVal I As Integer)
+        hfid.Value = ""
+
+        txtPerson_Name.Text = ""
+        txtIdentity_Card_Number = ""
+    End Sub
+    Private Sub SetFormMode(ByVal frmMode As String)
+
+        Dim bNew As Boolean
+        Dim bEdit As Boolean
+        Dim bView As Boolean
+        Dim bidle As Boolean
+
+        bNew = frmMode.ToUpper = "NEW"
+        bEdit = frmMode.ToUpper = "EDIT"
+        bView = frmMode.ToUpper = "VIEW"
+        bidle = frmMode.ToUpper = "IDLE"
+
+
+
+        If bNew Or bView Then Reset(0)
+
+        btnAdd.Visible = bNew
+
+        btnSave.Visible = bEdit
+        btnDelete.Visible = bEdit
+
+    End Sub
+    Private Sub loaddata()
+
+
+        Dim p3 As New membershipDB(gconn1)
+
+        If p3.pFind(strton(hfid.Value), "") Then
+            txtPerson_Name.Text = p3.MyDetail.Person_Name
+            txtIdentity_Card_Number.Text = p3.MyDetail.Identity_Card_Number
+
+            txtPhone_Number.Text = p3.MyDetail.Phone_Number
+            txtE_Mail.Text = p3.MyDetail.E_Mail
+            txtUniq_ID.Text = p3.MyDetail.Uniq_ID
+
+            txtMembership_Type.Text = p3.MyDetail.Membership_Type
+            txtTotal_Points.Text = p3.MyDetail.Total_Points
+            txtRebate_Percentage.Text = Format(p3.MyDetail.Rebate_Percetage, "#0.00##")
+
+            txtExpiry_Date.Text = p3.MyDetail.Expiry_Date
+
+
+            SetFormMode("Edit")
+        End If
+
+        p3.Dispose()
+
+        gconn1.Close()
     End Sub
 
-    'Required by the Component Designer
-    Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Component Designer
-    'It can be modified using the Component Designer.
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+    Private Sub updatedata(ByVal Action As String)
+        Dim p As New membershipDB(gconn1)
+        Dim xID As Integer
+
+
+        txtPerson_Name.Text = Trim(txtPerson_Name.Text)
+
+        txtIdentity_Card_Number.Text = Trim(txtIdentity_Card_Number.Text)
+
+        If hfid.Value <> "" Then xID = CInt(hfid.Value)
+
+        If (Action.ToUpper() = "NEW") Or (Action.ToUpper() = "UPDATE") Or (Action.ToUpper() = "DEL") Then
+
+            If p.pUpdate(xID, txtPerson_Name.Text, txtIdentity_Card_Number.Text, txtPhone_Number.Text,
+            txtE_Mail.Text, txtUniq_ID.Text, txtMembership_Type.Text, strton(txtTotal_Points.Text),
+            strton(txtRebate_Percentage.Text), txtExpiry_Date.Text, Action.ToUpper()) Then
+                If Action.ToUpper() = "DEL" Then
+                    toastUC.pText = "Deleted Record. (" & Now & ")"
+                    SetFormMode("VIEW")
+                Else
+                    hfid.Value = xID.ToString
+                    toastUC.pText = "Updated Record. (" & Now & ")"
+
+                    loaddata()
+                End If
+
+            Else
+                errorUC.pText = p.ErrorMsg
+            End If
+
+        End If
+        p.Dispose()
+
+        gconn1.Close()
+
+
+
     End Sub
 
-#End Region
-    Public ErrorMsg As String
-    Public mConnection As SqlConnection
 
-    Public Class recordDetail
-        Public ID As Integer
-        Public Person_Name As String
-        Public Identity_Card_Number As String
-        Public Phone_Number As String
-        Public E_Mail As String
-        Public Uniq_ID As String
-        Public Membership_Type As String
-        Public Total_Points As Integer
-        Public Rebate_Percetage As Decimal
-        Public Expiry_Date As DateTime
+    Private Sub btnAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        updatedata("NEW")
+    End Sub
 
+    Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+        updatedata("UPDATE")
 
-    End Class
-    Public MyDetail As New recordDetail
+    End Sub
 
+    Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+        updatedata("DEL")
 
+    End Sub
 
-    Public Function pFind(ByVal xId As Integer, ByVal Person_Name As String) As Boolean
-
-        Dim found As Boolean = False
-
-        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Fd", mConnection)
-
-        ' Mark the Command as a SPROC
-        myCommand.CommandType = CommandType.StoredProcedure
-
-        ' Add Parameters to SPROC
-        Dim parameterId As SqlParameter = New SqlParameter("@Id", SqlDbType.Int)
-        parameterId.Value = xId
-        myCommand.Parameters.Add(parameterId)
-
-        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
-        parameterPerson_Name.Value = Person_Name
-        myCommand.Parameters.Add(parameterPerson_Name)
-
-        ' Execute the command
-        Try
-            mConnection.Open()
-        Catch
-        End Try
-        Dim result As SqlDataReader = myCommand.ExecuteReader()
-
-
-
-        MyDetail.ID = 0
-        MyDetail.Person_Name = ""
-
-
-
-        If result.Read() Then
-            With MyDetail
-                ' On Error Resume Next
-                .ID = result("ID")
-                .Person_Name = result("Person_Name")
-                .Identity_Card_Number = result("Identity_Card_Number")
-                .Phone_Number = result("Phone_Number")
-                .E_Mail = result("E_mail")
-                .Uniq_ID = result("Uniq_ID")
-                .Membership_Type = result("Membership Type")
-                .Total_Points = result("Total_Points")
-                .Rebate_Percetage = result("Rebate_Percentages")
-                .Expiry_Date = result("Expiry_Date")
-
-            End With
-
-            found = True
-        End If
-        ' Return the datareader result
-        result.Close()
-        mConnection.Close()
-        Return found
-
-
-    End Function
-
-    Public Function pSearch(ByVal xSearchText As String,
-                            ByVal xPageRow As Integer, ByVal xPageindex As Integer) As SqlDataReader
-
-
-
-        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_src", mConnection)
-
-        ' Mark the Command as a SPROC
-        myCommand.CommandType = CommandType.StoredProcedure
-
-
-
-        Dim parameterSearchText As SqlParameter = New SqlParameter("@SearchText", SqlDbType.NVarChar, 100)
-        parameterSearchText.Value = xSearchText
-        myCommand.Parameters.Add(parameterSearchText)
-
-
-        Dim parameterPageRow As SqlParameter = New SqlParameter("@PageRow", SqlDbType.Int)
-        parameterPageRow.Value = xPageRow
-        myCommand.Parameters.Add(parameterPageRow)
-
-        Dim parameterPageindex As SqlParameter = New SqlParameter("@Pageindex", SqlDbType.Int)
-        parameterPageindex.Value = xPageindex
-        myCommand.Parameters.Add(parameterPageindex)
-
-        ' Execute the command
-        'myConnection.Open()
-        Try
-            mConnection.Open()
-        Catch
-        End Try
-        Dim result As SqlDataReader = myCommand.ExecuteReader()
-
-        ' Return the datareader result
-        Return result
-
-
-    End Function
-
-    Public Function pUpdate(ByRef xID As Integer, ByVal xPerson_Name As String, ByVal xIdentity_Card_Number As String,
-                            xPhone_Number As String,
-                            xE_Mail As String,
-                            xUniq_ID As String,
-                            xMembership_Type As String,
-                            xTotal_Points As Integer,
-                            xRebate_Percetage As Decimal,
-                            xExpiry_Date As DateTime,
-                            ByVal xAction As String
-                            ) As Boolean
-
-
-        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Updt", mConnection)
-
-
-        ' Mark the Command as a SPROC
-        myCommand.CommandType = CommandType.StoredProcedure
-
-        ' Add Parameters to SPROC
-        Dim parameterReturn_v As SqlParameter = New SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4)
-        parameterReturn_v.Direction = ParameterDirection.ReturnValue
-        myCommand.Parameters.Add(parameterReturn_v)
-
-
-        Dim parameterID As SqlParameter = New SqlParameter("@ID", SqlDbType.Int, 4)
-        parameterID.Value = xID
-        parameterID.Direction = ParameterDirection.InputOutput
-        myCommand.Parameters.Add(parameterID)
-
-        Dim parameterPerson_Name As SqlParameter = New SqlParameter("@Person_Name", SqlDbType.NVarChar, 50)
-        parameterPerson_Name.Value = xPerson_Name
-        myCommand.Parameters.Add(parameterPerson_Name)
-
-
-        Dim parameterIdentity_Card_Number As SqlParameter = New SqlParameter("@Identity_Card_Number", SqlDbType.NVarChar, 50)
-        parameterIdentity_Card_Number.Value = xIdentity_Card_Number
-        myCommand.Parameters.Add(parameterIdentity_Card_Number)
-
-
-        Dim parameterPhone_Number As SqlParameter = New SqlParameter("@Phone_Number", SqlDbType.NVarChar, 50)
-        parameterPhone_Number.Value = xPhone_Number
-        myCommand.Parameters.Add(parameterPhone_Number)
-
-        Dim parameterE_Mail As SqlParameter = New SqlParameter("@E_Mail", SqlDbType.NVarChar, 50)
-        parameterE_Mail.Value = xE_Mail
-        myCommand.Parameters.Add(parameterE_Mail)
-
-        Dim parameterUniq_ID As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
-        parameterUniq_ID.Value = xUniq_ID
-        myCommand.Parameters.Add(parameterUniq_ID)
-
-        Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
-        parameterMembership_Type.Value = xMembership_Type
-        myCommand.Parameters.Add(parameterMembership_Type)
-
-        Dim parameterTotal_Points As SqlParameter = New SqlParameter("@xTotal_Points", SqlDbType.Int)
-        parameterTotal_Points.Value = xTotal_Points
-        myCommand.Parameters.Add(parameterTotal_Points)
-
-        Dim parameterRebate_Percetage As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.Decimal)
-        parameterRebate_Percetage.Value = xRebate_Percetage
-        myCommand.Parameters.Add(parameterRebate_Percetage)
-
-        Dim parameterxpiry_Date As SqlParameter = New SqlParameter("@Expriry_Date", SqlDbType.DateTime)
-        parameterxpiry_Date.Value = xExpiry_Date
-        myCommand.Parameters.Add(parameterxpiry_Date)
-
-
-        Dim usr As New userDB(mConnection)
-        usr.GetCurrentUser()
-        usr.Dispose()
-        mConnection.Close()
-
-        Dim parameterAction As SqlParameter = New SqlParameter("@Action", SqlDbType.NVarChar, 10)
-        parameterAction.Value = xAction
-        myCommand.Parameters.Add(parameterAction)
-
-
-
-        ' Open the connection and execute the Command
-        Try
-            mConnection.Open()
-        Catch
-        End Try
-
-
-        Try
-            myCommand.ExecuteNonQuery()
-
-            xID = CInt(parameterID.Value)
-        Catch ex As Exception
-            ErrorMsg = ex.Message
-            mConnection.Close()
-            Return False
-        End Try
-        mConnection.Close()
-        Return CInt(parameterReturn_v.Value) = 0
-
-    End Function
 End Class
-
-
