@@ -1,0 +1,27 @@
+USE [OnlinePOSdb]
+GO
+/****** Object:  StoredProcedure [dbo].[p_o_Membership_Fd]    Script Date: 19-Jun-22 20:36:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [dbo].[p_o_Membership_Fd]
+  @ID varchar(50) = '',
+  @Person_Name varchar(50)=''
+--WITHENCRYPTION
+AS
+   set nocount on
+
+  set @Person_Name=isnull(rtrim(ltrim(@Person_Name)),'')
+
+  select a.*, f.ID as updatebycode 
+  from o_Membership a  left join o_user f on a.Expiry_Date=f.Id   
+  where 
+               (isnull(@Person_Name,'')='' or a.Person_Name=@Person_Name) and
+               (isnull(@ID,0)=0 or a.ID=@ID) and
+               (isnull(@Person_Name,'')<>'' or isnull(@ID,0)<>0)
+return 0
+
+
+
+
