@@ -15,7 +15,7 @@ AS
   set @Person_Name=isnull(rtrim(ltrim(@Person_Name)),'')
 
   select a.*, f.ID as updatebycode 
-  from o_Membership a  left join o_user f on a.Expiry_Date=f.Id   
+  from o_Membership a  left join o_user f on a.ID=f.ID   
   where 
                (isnull(@Person_Name,'')='' or a.Person_Name=@Person_Name) and
                (isnull(@ID,0)=0 or a.ID=@ID) and
