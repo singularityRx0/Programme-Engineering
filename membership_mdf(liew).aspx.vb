@@ -28,7 +28,7 @@ Public Class membership_mdf
 
             Dim xid As String = Request.Params("xid")
             If xid <> "" Then
-                hfid.Value = xid
+                        hfid.Value = xID
                 loaddata()
             End If
 
