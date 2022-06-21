@@ -72,6 +72,7 @@ Public Class membershipDB
         Public Total_Points As Integer
         Public Rebate_Percetage As Decimal
         Public Expiry_Date As DateTime
+        Public Updateby As Integer
 
 
     End Class
@@ -124,6 +125,7 @@ Public Class membershipDB
                 .Total_Points = result("Total_Points")
                 .Rebate_Percetage = result("Rebate_Percentages")
                 .Expiry_Date = result("Expiry_Date")
+                .Updateby = result("Updateby")
 
             End With
 
@@ -184,6 +186,7 @@ Public Class membershipDB
                             xTotal_Points As Integer,
                             xRebate_Percetage As Decimal,
                             xExpiry_Date As DateTime,
+                            xUpdateby As Integer,
                             ByVal xAction As String
                             ) As Boolean
 
@@ -248,6 +251,10 @@ Public Class membershipDB
         usr.GetCurrentUser()
         usr.Dispose()
         mConnection.Close()
+
+        Dim parameterUpdateby As SqlParameter = New SqlParameter("@Updateby", SqlDbType.Int)
+        parameterRebate_Percetage.Value = xUpdateby
+        myCommand.Parameters.Add(parameterUpdateby)
 
         Dim parameterAction As SqlParameter = New SqlParameter("@Action", SqlDbType.NVarChar, 10)
         parameterAction.Value = xAction
