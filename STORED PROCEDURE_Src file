@@ -15,7 +15,7 @@ GO
 
 
 
-CREATE    PROCEDURE [dbo].[p_o_Membership_Src] 
+CREATE    PROCEDURE [dbo].[p_Membership_Src] 
   @searchtext nvarchar(100) ,
       @PageRow int,
     @PageIndex int
