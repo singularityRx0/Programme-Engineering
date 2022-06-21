@@ -47,7 +47,7 @@ Public Class membership_mdf
         hfid.Value = ""
 
         txtPerson_Name.Text = ""
-        txtIdentity_Card_Number = ""
+        txtIdentity_Card_Number.Text = ""
     End Sub
     Private Sub SetFormMode(ByVal frmMode As String)
 
@@ -89,7 +89,7 @@ Public Class membership_mdf
             txtRebate_Percentage.Text = Format(p3.MyDetail.Rebate_Percetage, "#0.00##")
 
             txtExpiry_Date.Text = p3.MyDetail.Expiry_Date
-
+            txtUpdateby.Text = p3.MyDetail.Updateby
 
             SetFormMode("Edit")
         End If
@@ -115,7 +115,7 @@ Public Class membership_mdf
 
             If p.pUpdate(xID, txtPerson_Name.Text, txtIdentity_Card_Number.Text, txtPhone_Number.Text,
             txtE_Mail.Text, txtUniq_ID.Text, txtMembership_Type.Text, strton(txtTotal_Points.Text),
-            strton(txtRebate_Percentage.Text), txtExpiry_Date.Text, Action.ToUpper()) Then
+            strton(txtRebate_Percentage.Text), txtExpiry_Date.Text, strton(txtUpdateby.Text), Action.ToUpper()) Then
                 If Action.ToUpper() = "DEL" Then
                     toastUC.pText = "Deleted Record. (" & Now & ")"
                     SetFormMode("VIEW")
