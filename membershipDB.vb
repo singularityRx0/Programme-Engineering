@@ -70,9 +70,9 @@ Public Class membershipDB
         Public Uniq_ID As String
         Public Set_Password As String
         Public Membership_Type As String
-        Public Total_Points As Integer
-        Public Rebate_Percentage As Decimal
-        Public Expiry_Date As DateTime
+        Public Total_Points As String
+        Public Rebate_Percentage As String
+        Public Expiry_Date As String
 
 
     End Class
@@ -84,7 +84,7 @@ Public Class membershipDB
 
         Dim found As Boolean = False
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_Membership_Fd", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Fd", mConnection)
 
         ' Mark the Command as a SPROC
         myCommand.CommandType = CommandType.StoredProcedure
@@ -117,14 +117,17 @@ Public Class membershipDB
                 ' On Error Resume Next
                 .ID = result("ID")
                 .Person_Name = result("Person_Name")
+
                 .Identity_Card_Number = result("Identity_Card_Number")
                 .Phone_Number = result("Phone_Number")
                 .E_Mail = result("E_mail")
                 .Uniq_ID = result("Uniq_ID")
+
                 .Set_Password = result("Set_Password")
                 .Membership_Type = result("Membership_Type")
                 .Total_Points = result("Total_Points")
-                .Rebate_Percentage = result("Rebate_Percentages")
+
+                .Rebate_Percentage = result("Rebate_Percentage")
                 .Expiry_Date = result("Expiry_Date")
 
             End With
@@ -144,7 +147,7 @@ Public Class membershipDB
 
 
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_Membership_src", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_src", mConnection)
 
         ' Mark the Command as a SPROC
         myCommand.CommandType = CommandType.StoredProcedure
@@ -184,14 +187,14 @@ Public Class membershipDB
                             xUniq_ID As String,
                             xSet_Password As String,
                             xMembership_Type As String,
-                            xTotal_Points As Integer,
-                            xRebate_Percentage As Decimal,
-                            xExpiry_Date As DateTime,
+                            xTotal_Points As String,
+                            xRebate_Percentage As String,
+                            xExpiry_Date As String,
                             ByVal xAction As String
                             ) As Boolean
 
 
-        Dim myCommand As SqlCommand = New SqlCommand("p_o_Membership_Updt", mConnection)
+        Dim myCommand As SqlCommand = New SqlCommand("p_Membership_Updt", mConnection)
 
 
         ' Mark the Command as a SPROC
@@ -230,29 +233,32 @@ Public Class membershipDB
         parameterUniq_ID.Value = xUniq_ID
         myCommand.Parameters.Add(parameterUniq_ID)
 
-        Dim Set_Password As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
-        parameterUniq_ID.Value = xSet_Password
-        myCommand.Parameters.Add(Set_Password)
+        Dim parameterSet_Password As SqlParameter = New SqlParameter("@Set_Password", SqlDbType.NVarChar, 50)
+        parameterSet_Password.Value = xSet_Password
+        myCommand.Parameters.Add(parameterSet_Password)
 
         Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
         parameterMembership_Type.Value = xMembership_Type
         myCommand.Parameters.Add(parameterMembership_Type)
 
-        Dim parameterTotal_Points As SqlParameter = New SqlParameter("@xTotal_Points", SqlDbType.Int)
+        Dim parameterTotal_Points As SqlParameter = New SqlParameter("@Total_Points", SqlDbType.NVarChar, 50)
         parameterTotal_Points.Value = xTotal_Points
         myCommand.Parameters.Add(parameterTotal_Points)
 
-        Dim parameterRebate_Percentage As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.Decimal)
+        Dim parameterRebate_Percentage As SqlParameter = New SqlParameter("@Rebate_Percentage", SqlDbType.NVarChar, 50)
         parameterRebate_Percentage.Value = xRebate_Percentage
         myCommand.Parameters.Add(parameterRebate_Percentage)
 
-        Dim parameterxpiry_Date As SqlParameter = New SqlParameter("@Expriry_Date", SqlDbType.DateTime)
-        parameterxpiry_Date.Value = xExpiry_Date
-        myCommand.Parameters.Add(parameterxpiry_Date)
+        Dim parameterExpiry_Date As SqlParameter = New SqlParameter("@Expiry_Date", SqlDbType.NVarChar, 50)
+        parameterExpiry_Date.Value = xExpiry_Date
+        myCommand.Parameters.Add(parameterExpiry_Date)
 
 
         Dim usr As New userDB(mConnection)
         usr.GetCurrentUser()
+        Dim parameterUpdateBy As SqlParameter = New SqlParameter("@UpdateBy", SqlDbType.Int)
+        parameterUpdateBy.Value = usr.MyDetail.ID
+        myCommand.Parameters.Add(parameterUpdateBy)
         usr.Dispose()
         mConnection.Close()
 
