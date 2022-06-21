@@ -68,11 +68,11 @@ Public Class membershipDB
         Public Phone_Number As String
         Public E_Mail As String
         Public Uniq_ID As String
+        Public Set_Password As String
         Public Membership_Type As String
         Public Total_Points As Integer
         Public Rebate_Percetage As Decimal
         Public Expiry_Date As DateTime
-        Public Updateby As Integer
 
 
     End Class
@@ -121,11 +121,11 @@ Public Class membershipDB
                 .Phone_Number = result("Phone_Number")
                 .E_Mail = result("E_mail")
                 .Uniq_ID = result("Uniq_ID")
+                .Set_Password = result("Set_Password")
                 .Membership_Type = result("Membership_Type")
                 .Total_Points = result("Total_Points")
                 .Rebate_Percetage = result("Rebate_Percentages")
                 .Expiry_Date = result("Expiry_Date")
-                .Updateby = result("Updateby")
 
             End With
 
@@ -182,11 +182,11 @@ Public Class membershipDB
                             xPhone_Number As String,
                             xE_Mail As String,
                             xUniq_ID As String,
+                            xSet_Password As String,
                             xMembership_Type As String,
                             xTotal_Points As Integer,
                             xRebate_Percetage As Decimal,
                             xExpiry_Date As DateTime,
-                            xUpdateby As Integer,
                             ByVal xAction As String
                             ) As Boolean
 
@@ -230,6 +230,10 @@ Public Class membershipDB
         parameterUniq_ID.Value = xUniq_ID
         myCommand.Parameters.Add(parameterUniq_ID)
 
+        Dim Set_Password As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
+        parameterUniq_ID.Value = xSet_Password
+        myCommand.Parameters.Add(Set_Password)
+
         Dim parameterMembership_Type As SqlParameter = New SqlParameter("@Membership_Type", SqlDbType.NVarChar, 50)
         parameterMembership_Type.Value = xMembership_Type
         myCommand.Parameters.Add(parameterMembership_Type)
@@ -252,9 +256,6 @@ Public Class membershipDB
         usr.Dispose()
         mConnection.Close()
 
-        Dim parameterUpdateby As SqlParameter = New SqlParameter("@Updateby", SqlDbType.Int)
-        parameterRebate_Percetage.Value = xUpdateby
-        myCommand.Parameters.Add(parameterUpdateby)
 
         Dim parameterAction As SqlParameter = New SqlParameter("@Action", SqlDbType.NVarChar, 10)
         parameterAction.Value = xAction
