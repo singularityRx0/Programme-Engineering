@@ -50,7 +50,6 @@
                   </div>
 
 
-
                   <div class="drv_group_underline">
                       <b>Identity Card Number</b>
                                 <asp:TextBox ID="txtIdentity_Card_Number" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float:right" />
@@ -62,14 +61,21 @@
                     <asp:TextBox ID="txtPhone_Number" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
 
                 </div>
+
                 <div class="drv_group_underline" style="height:100px">
                     <b>E-mail</b>
                     <asp:TextBox ID="txtE_Mail" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" Height="100px" TextMode="MultiLine" />
 
                 </div>
+
                 <div class="drv_group_underline">
                     <b>Uniq ID</b>
                     <asp:TextBox ID="txtUniq_ID" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
+                </div>
+
+                <div class="drv_group_underline">
+                    <b>Set Password</b>
+                    <asp:TextBox ID="txtSet_Password" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
 
                 <div class="drv_group_underline">
@@ -86,25 +92,17 @@
                     <b>Rebate Percentage</b>
                     <asp:TextBox ID="txtRebate_Percentage" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
-                      <div class="drv_group_underline">
+
+                <div class="drv_group_underline">
                     <b>Expiry Date</b>
                     <asp:TextBox ID="txtExpiry_Date" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
                 </div>
-                <div class="drv_group_underline">
-                    <b>GL Account</b>
-                    <asp:TextBox ID="txtAcc_GLAccountCode" runat="server" CssClass="drv_textbox" autofocus="true" Width="200px" Style="float: right" />
-                </div>
-
-                <div class="drv_group_underline">
-                    <b>Active</b>
-                    <asp:CheckBox  Style="float: right" ID="chkactive" runat="server" />
-                   
-                </div>
-
+                
 
        <br /> <br /> <br />
       <div style="text-align:center">
-                              <asp:Button ID="btnAdd" runat="server" CssClass="drv_button20201202" Text="Create"></asp:Button>
+                    <asp:Button ID="btnAdd" runat="server" CssClass="drv_button20201202" Text="Create"></asp:Button>
+
                     &nbsp;
                     <asp:Button ID="btnSave" runat="server" CssClass="drv_button20201202" Text="Save" CausesValidation="False"></asp:Button>
                     &nbsp;
