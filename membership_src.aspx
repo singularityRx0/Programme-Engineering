@@ -6,7 +6,7 @@
 <%@ Register Src="~/paging.ascx" TagPrefix="uc2" TagName="paging" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHoldertop" runat="server">
-Membership 
+Membership
 
      
 </asp:Content>
@@ -62,9 +62,9 @@ Membership
                                                      <ItemTemplate>
 
 
-                                                         <%#DataBinder.Eval(Container.DataItem, "Code")%>
+                                                         <%#DataBinder.Eval(Container.DataItem, "Person_Name")%>
                                                          <div>
-                                                             <%#DataBinder.Eval(Container.DataItem, "description")%>
+                                                             <%#DataBinder.Eval(Container.DataItem, "Identity_Card_Number")%>
                                                          </div>
                                                      </ItemTemplate>
                                                  </asp:TemplateField>
@@ -129,7 +129,7 @@ Membership
                  });
 
                  if (Customerid > 0) {
-                     document.getElementById('ifcontent').src = "membership_mdf.aspx?xid=" + Customerid + "&time=" + t;
+                     document.getElementById('ifcontent').src = "membership_mdf.aspx?xid=" + Person_Name + "&time=" + t;
 
                  } else {
                      document.getElementById('ifcontent').src = "membership_mdf.aspx?frmMode=NEW&time=" + t;
@@ -160,4 +160,3 @@ Membership
             opensub2(4);
         </script>
 </asp:Content>
-
