@@ -117,7 +117,7 @@ Membership
 
 
 
-             function openright(Customerid) {
+             function openright(Membershipid) {
                  var d = new Date();
                  var t = d.getTime();
 
@@ -129,7 +129,7 @@ Membership
                  });
 
                  if (Customerid > 0) {
-                     document.getElementById('ifcontent').src = "membership_mdf.aspx?xid=" + Person_Name + "&time=" + t;
+                     document.getElementById('ifcontent').src = "membership_mdf.aspx?xID=" + Membershipid + "&time=" + t;
 
                  } else {
                      document.getElementById('ifcontent').src = "membership_mdf.aspx?frmMode=NEW&time=" + t;
