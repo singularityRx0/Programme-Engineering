@@ -78,17 +78,17 @@ Public Class membership_mdf
 
         If p3.pFind(strton(hfid.Value), "") Then
             txtPerson_Name.Text = p3.MyDetail.Person_Name
-            txtIdentity_Card_Number.Text = p3.MyDetail.Identity_Card_Number
 
+            txtIdentity_Card_Number.Text = p3.MyDetail.Identity_Card_Number
             txtPhone_Number.Text = p3.MyDetail.Phone_Number
             txtE_Mail.Text = p3.MyDetail.E_Mail
             txtUniq_ID.Text = p3.MyDetail.Uniq_ID
-            txtSet_Password.Text = p3.MyDetail.Set_Password
 
+            txtSet_Password.Text = p3.MyDetail.Set_Password
             txtMembership_Type.Text = p3.MyDetail.Membership_Type
             txtTotal_Points.Text = p3.MyDetail.Total_Points
-            txtRebate_Percentage.Text = Format(p3.MyDetail.Rebate_Percetage, "#0.00##")
 
+            txtRebate_Percentage.Text = p3.MyDetail.Rebate_Percentage
             txtExpiry_Date.Text = p3.MyDetail.Expiry_Date
 
             SetFormMode("Edit")
@@ -114,8 +114,8 @@ Public Class membership_mdf
         If (Action.ToUpper() = "NEW") Or (Action.ToUpper() = "UPDATE") Or (Action.ToUpper() = "DEL") Then
 
             If p.pUpdate(xID, txtPerson_Name.Text, txtIdentity_Card_Number.Text, txtPhone_Number.Text,
-            txtE_Mail.Text, txtUniq_ID.Text, txtSet_Password.Text, txtMembership_Type.Text, strton(txtTotal_Points.Text),
-            strton(txtRebate_Percentage.Text), txtExpiry_Date.Text, Action.ToUpper()) Then
+            txtE_Mail.Text, txtUniq_ID.Text, txtSet_Password.Text, txtMembership_Type.Text, txtTotal_Points.Text,
+            txtRebate_Percentage.Text, txtExpiry_Date.Text, Action.ToUpper()) Then
                 If Action.ToUpper() = "DEL" Then
                     toastUC.pText = "Deleted Record. (" & Now & ")"
                     SetFormMode("VIEW")
