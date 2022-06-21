@@ -80,7 +80,7 @@ Public Class membershipDB
 
 
 
-    Public Function pFind(ByVal xId As Integer, ByVal Person_Name As String) As Boolean
+    Public Function pFind(ByVal xID As Integer, ByVal Person_Name As String) As Boolean
 
         Dim found As Boolean = False
 
