@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE Procedure [dbo].[p_o_Membership_Fd]
+CREATE Procedure [dbo].[p_Membership_Fd]
   @ID varchar(50) = '',
   @Person_Name varchar(50)=''
 --WITHENCRYPTION
