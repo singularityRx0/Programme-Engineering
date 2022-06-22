@@ -11,7 +11,7 @@ CREATE TABLE o_Membership
 	Rebate_Percetage nvarchar(50),
 	Expiry_Date nvarchar(50),
  	UpdateBy int,
- 	UpdateAt dattime,
+ 	UpdateAt datetime,
  	CreatedAt datetime,
 );
 
