@@ -45,7 +45,7 @@ Membership
       
                 <div class="drv_rw20201206-column local_div2" style="height: 500px;">
                                <div class="drv_title">Membership List      <button class="drv_buttonrowtable" style="float:right" onclick="openright(0)" type="button">Register</button></div>
-                     <asp:TextBox ID="txtsearchtext" runat="server" placeholder="Person Name\Membership Type" CssClass="drv_textbox" autofocus="true" Width="200px" />
+                     <asp:TextBox ID="txtsearchtext" runat="server" placeholder="Name/IC/Membership Type" CssClass="drv_textbox" autofocus="true" Width="200px" />
          <asp:Button ID="btnsearch" runat="server" CssClass="drv_button20201202" Text="Search"></asp:Button><br /><br />
                                      <div class="drv_datatable">
                                          <asp:GridView ID="dgmember" AutoGenerateColumns="false" GridLines="None" runat="server" Width="100%" EnableViewState="False"
