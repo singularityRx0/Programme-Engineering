@@ -1,13 +1,13 @@
 USE [OnlinePOSdb]
 GO
-/****** Object:  StoredProcedure [dbo].[p_Membership_Src]    Script Date: 22/6/2022 5:12:13 PM ******/
+/****** Object:  StoredProcedure [dbo].[p_Membership_Src]    Script Date: 22/6/2022 5:23:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE   PROCEDURE [dbo].[p_Membership_Src] 
+ALTER    PROCEDURE [dbo].[p_Membership_Src] 
   @searchtext nvarchar(100) ,
       @PageRow int,
     @PageIndex int
@@ -27,16 +27,7 @@ AS
   from o_Membership a
      where 
                  (isnull(a.Person_Name,'') like @searchtext or
-                 isnull(a.Identity_Card_Number,'') like @searchtext) and
-                 isnull(a.Phone_Number,'') like @searchtext and
-                 isnull(a.E_Mail,'') like @searchtext and
-				         isnull(a.Uniq_ID,'') like @searchtext and
-                 isnull(a.Set_Password,'') like @searchtext and
-                 (isnull(a.Membership_Type,'') like @searchtext or
-                 isnull(a.Total_Points,'') like @searchtext) and
-				 (isnull(a.Rebate_Percentage,'') like @searchtext or 
-				 isnull(a.Expiry_Date,'') like @searchtext)
-
+                 isnull(a.Identity_Card_Number,'') like @searchtext)
              
 
 
@@ -61,20 +52,12 @@ AS
 
     select ROW_NUMBER() OVER(ORDER BY a.Person_Name) as seq, 
 	    a.ID,a.Person_Name,a.Identity_Card_Number,a.Phone_Number,a.E_Mail,
-                     a.Uniq_ID,a.Set_Password,a.Membership_Type,a.Total_Points,a.Rebate_Percentage,
+                     a.Unique_Identity,a.Set_Password,a.Membership_Type,a.Total_Points,a.Rebate_Percentage,
 					 a.Expiry_Date
    from o_Membership a
      where 
                  (isnull(a.Person_Name,'') like @searchtext or
-                 isnull(a.Identity_Card_Number,'') like @searchtext) and
-                 isnull(a.Phone_Number,'') like @searchtext and
-                 isnull(a.E_Mail,'') like @searchtext and
-				         isnull(a.Uniq_ID,'') like @searchtext and
-                 isnull(a.Set_Password,'') like @searchtext and
-                 (isnull(a.Membership_Type,'') like @searchtext or
-                 isnull(a.Total_Points,'') like @searchtext) and
-				 (isnull(a.Rebate_Percentage,'') like @searchtext or 
-				 isnull(a.Expiry_Date,'') like @searchtext)
+                 isnull(a.Identity_Card_Number,'') like @searchtext)
 			
 	order by seq
 	  OFFSET (@StartRow-1) ROWS FETCH NEXT @PageRow ROWS ONLY 
