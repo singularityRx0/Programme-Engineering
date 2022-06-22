@@ -67,7 +67,7 @@ Public Class membershipDB
         Public Identity_Card_Number As String
         Public Phone_Number As String
         Public E_Mail As String
-        Public Unique_Identity As String
+        Public Uniq_ID As String
         Public Set_Password As String
         Public Membership_Type As String
         Public Total_Points As String
@@ -121,7 +121,7 @@ Public Class membershipDB
                 .Identity_Card_Number = result("Identity_Card_Number")
                 .Phone_Number = result("Phone_Number")
                 .E_Mail = result("E_mail")
-                .Unique_Identity = result("Unique_Identity")
+                .Uniq_ID = result("Uniq_ID")
 
                 .Set_Password = result("Set_Password")
                 .Membership_Type = result("Membership_Type")
@@ -184,7 +184,7 @@ Public Class membershipDB
     Public Function pUpdate(ByRef xID As Integer, ByVal xPerson_Name As String, ByVal xIdentity_Card_Number As String,
                             xPhone_Number As String,
                             xE_Mail As String,
-                            xUnique_Identity As String,
+                            xUniq_ID As String,
                             xSet_Password As String,
                             xMembership_Type As String,
                             xTotal_Points As String,
@@ -229,9 +229,9 @@ Public Class membershipDB
         parameterE_Mail.Value = xE_Mail
         myCommand.Parameters.Add(parameterE_Mail)
 
-        Dim parameterUnique_Idenetity As SqlParameter = New SqlParameter("@Unique_Identity", SqlDbType.NVarChar, 50)
-        parameterUnique_Idenetity.Value = xUnique_Identity
-        myCommand.Parameters.Add(parameterUnique_Idenetity)
+        Dim parameterUniq_ID As SqlParameter = New SqlParameter("@Uniq_ID", SqlDbType.NVarChar, 50)
+        parameterUniq_ID.Value = xUniq_ID
+        myCommand.Parameters.Add(parameterUniq_ID)
 
         Dim parameterSet_Password As SqlParameter = New SqlParameter("@Set_Password", SqlDbType.NVarChar, 50)
         parameterSet_Password.Value = xSet_Password
