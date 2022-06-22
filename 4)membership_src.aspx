@@ -70,7 +70,28 @@ Membership
                                                  </asp:TemplateField>
 
 
+ 							<asp:TemplateField HeaderText="Membership Type">
+                                                     <ItemTemplate>
+                                                         <%#DataBinder.Eval(Container.DataItem, "Membership_Type")%>
+                                                         <div>
+                                                             <%#DataBinder.Eval(Container.DataItem, "Rebate_Percentage")%>
+                                                         </div>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
 
+                                                 <asp:TemplateField HeaderText="Total Points">
+                                                     <ItemTemplate>
+                                                         <%#DataBinder.Eval(Container.DataItem, "Total_Points")%>
+                                                     </ItemTemplate>
+                                                 </asp:TemplateField>
+
+                                                 <asp:TemplateField HeaderText="Exipre Date">
+                                                     <ItemTemplate>
+                                                         <%#DataBinder.Eval(Container.DataItem, "Expiry_Date")%>
+                                                     </ItemTemplate>
+							 
+							 
+                                                 </asp:TemplateField>
                                                  <asp:TemplateField HeaderText="Action" ItemStyle-Width="50px">
                                                      <ItemTemplate>
 
