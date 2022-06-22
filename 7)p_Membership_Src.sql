@@ -1,6 +1,6 @@
 USE [OnlinePOSdb]
 GO
-/****** Object:  StoredProcedure [dbo].[p_Membership_Src]    Script Date: 22/6/2022 5:23:17 PM ******/
+/****** Object:  StoredProcedure [dbo].[p_Membership_Src]    Script Date: 22/6/2022 6:44:16 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -27,7 +27,8 @@ AS
   from o_Membership a
      where 
                  (isnull(a.Person_Name,'') like @searchtext or
-                 isnull(a.Identity_Card_Number,'') like @searchtext)
+                 isnull(a.Identity_Card_Number,'') like @searchtext or 
+		 isnull(a.Membership_Type,'') like @searchtext)
              
 
 
@@ -57,8 +58,8 @@ AS
    from o_Membership a
      where 
                  (isnull(a.Person_Name,'') like @searchtext or
-                 isnull(a.Identity_Card_Number,'') like @searchtext)
-			
+                 isnull(a.Identity_Card_Number,'') like @searchtext or 
+		 isnull(a.Membership_Type,'') like @searchtext)
 	order by seq
 	  OFFSET (@StartRow-1) ROWS FETCH NEXT @PageRow ROWS ONLY 
   
