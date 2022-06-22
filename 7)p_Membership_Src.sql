@@ -53,7 +53,7 @@ AS
 
     select ROW_NUMBER() OVER(ORDER BY a.Person_Name) as seq, 
 	    a.ID,a.Person_Name,a.Identity_Card_Number,a.Phone_Number,a.E_Mail,
-                     a.Unique_Identity,a.Set_Password,a.Membership_Type,a.Total_Points,a.Rebate_Percentage,
+                     a.Uniq_ID,a.Set_Password,a.Membership_Type,a.Total_Points,a.Rebate_Percentage,
 					 a.Expiry_Date
    from o_Membership a
      where 
