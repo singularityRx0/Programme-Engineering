@@ -28,7 +28,7 @@ AS
    set @Identity_Card_Number=isnull(rtrim(ltrim(@Identity_Card_Number)),'')
    set @Phone_Number=isnull(rtrim(ltrim(@Phone_Number)),'')
    set @E_mail=isnull(rtrim(ltrim(@E_mail)),'')
-   set @Uniq_ID=isnull(rtrim(ltrim(@UUniq_ID)),'')
+   set @Uniq_ID=isnull(rtrim(ltrim(@Uniq_ID)),'')
    set @Set_Password=isnull(rtrim(ltrim(@Set_Password)),'')
    set @Membership_Type=isnull(rtrim(ltrim(@Membership_Type)),'')
    set @Total_Points=isnull(rtrim(ltrim(@Total_Points)),'')
